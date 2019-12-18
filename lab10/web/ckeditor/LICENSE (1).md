@@ -803,7 +803,7 @@ Version 1.1
      1.0.1. "Commercial Use" means distribution or otherwise making the
      Covered Code available to a third party.
 
-     1.1. "Contributor" means each main.java.hust.entity that creates or contributes to
+     1.1. "Contributor" means each entity that creates or contributes to
      the creation of Modifications.
 
      1.2. "Contributor Version" means the combination of the Original
@@ -821,7 +821,7 @@ Version 1.1
      1.5. "Executable" means Covered Code in any form other than Source
      Code.
 
-     1.6. "Initial Developer" means the individual or main.java.hust.entity identified
+     1.6. "Initial Developer" means the individual or entity identified
      as the Initial Developer in the Source Code notice required by Exhibit
      A.
 
@@ -863,16 +863,16 @@ Version 1.1
      appropriate decompression or de-archiving software is widely available
      for no charge.
 
-     1.12. "You" (or "Your")  means an individual or a legal main.java.hust.entity
+     1.12. "You" (or "Your")  means an individual or a legal entity
      exercising rights under, and complying with all of the terms of, this
      License or a future version of this License issued under Section 6.1.
-     For legal entities, "You" includes any main.java.hust.entity which controls, is
+     For legal entities, "You" includes any entity which controls, is
      controlled by, or is under common control with You. For purposes of
      this definition, "control" means (a) the power, direct or indirect,
-     to cause the direction or management of such main.java.hust.entity, whether by
+     to cause the direction or management of such entity, whether by
      contract or otherwise, or (b) ownership of more than fifty percent
      (50%) of the outstanding shares or beneficial ownership of such
-     main.java.hust.entity.
+     entity.
 
 2. Source Code License.
 
@@ -1198,7 +1198,7 @@ Version 1.1
      California law provisions (except to the extent applicable law, if
      any, provides otherwise), excluding its conflict-of-law provisions.
      With respect to disputes in which at least one party is a citizen of,
-     or an main.java.hust.entity chartered or registered to do business in the United
+     or an entity chartered or registered to do business in the United
      States of America, any litigation relating to this License shall be
      subject to the jurisdiction of the Federal Courts of the Northern
      District of California, with venue lying in Santa Clara County,

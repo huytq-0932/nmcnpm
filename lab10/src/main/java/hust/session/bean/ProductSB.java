@@ -2,16 +2,19 @@ package main.java.hust.session.bean;
 
 import main.java.hust.entity.ProductEntity;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
+@Stateless
 public class ProductSB extends BaseSessionBean<ProductEntity> {
 
+    @PersistenceContext(unitName = "eMarketPU")
     private EntityManager entityManager;
 
-    public ProductSB(EntityManager entityManager) {
+    public ProductSB() {
         super(ProductEntity.class);
-        this.entityManager = entityManager;
     }
 
     @Override

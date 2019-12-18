@@ -11,51 +11,47 @@
 <c:set var="category" scope="request" value="${selectedCategory}}"/>
 <jsp:useBean id="categoryProducts" scope="request" type="java.util.List"/>
 <c:set var="categoryProducts" scope="request" value="${categoryProducts}"/>
-<div id="container">
-    <div class="one">
-        <div class="heading_bg">
-            <h2><%=selectedCategory.getName()%>
-            </h2>
-        </div>
-        <div id="portfolio">
-            <div class="portfolio-container" id="columns">
-                <ul>
+<div id="container" class="bg-white">
+    <div class="heading_bg">
+        <h2><%=selectedCategory.getName()%>
+        </h2>
+    </div>
+    <div class="bg-white">
+        <div id="portfolio" class="mt-2">
+            <div>
+                <div class="row">
                     <%
-                        //                        List<ProductEntity> categoryProducts =
-//                                (List<ProductEntity>) session.getAttribute("categoryProducts");
-                        for (ProductEntity product : (List<ProductEntity>)categoryProducts) {
+                        for (ProductEntity product : (List<ProductEntity>) categoryProducts) {
                     %>
-                    <li class="one-third">
+                    <div class="col-4 mb-2">
                         <p>
                             <a title="<%=product.getName()%>"
-                               href="img/demo/<%=product.getImage()%>"
+                               href="images/<%=product.getImage()%>"
                                class="portfolio-item-preview"
                                data- rel="prettyPhoto"
                             >
-                                <img src="img/demo/<%=product.getImage()%>"
+                                <img src="images/<%=product.getImage()%>"
                                      alt=""
                                      width="210"
                                      height="145"
-                                     class="portfolio-img pretty-box"
-                                >
+                                     class="portfolio-img pretty-box">
                             </a>
                         </p>
-                        <h4><a href="productDetail?productId=<%=product.getProductId()%>"><%=product.getName()%>
+                        <h4><a href="detail?productId=<%=product.getProductId()%>"><%=product.getName()%>
                         </a></h4>
                         <p><%=product.getDescription()%>
                         </p>
                         <p style="text-align: left">
-                            <a href="productDetail?productId=<%=product.getProductId()%>" class="button_small white">
+                            <a href="detail?productId=<%=product.getProductId()%>" class="button_small white">
                                 See Details &raquo;
                             </a>
                         </p>
-                    </li>
+                    </div>
                     <%
                         }
                     %>
-                </ul>
+                </div>
             </div>
         </div>
     </div>
-    <div style="clear:both; height: 40px"></div>
 </div>

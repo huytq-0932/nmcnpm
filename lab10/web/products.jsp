@@ -1,3 +1,5 @@
+<%@ page import="main.java.hust.entity.ProductEntity" %>
+<%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -6,78 +8,92 @@
   Time: 10:03 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Products</title>
-</head>
-<body>
-<div id="container">
-    <div id="prod_wrapper">
-        <div id="" class="mb-3">
-            <%--@elvariable id="newProducts" type="java.util.List"--%>
-            <jsp:useBean id="currentProduct" scope="request" type="main.java.hust.entity.ProductEntity"/>
-            <c:set var="product" scope="request" value="${currentProduct}"/>
-            <%--            <c:forEach var="product" items="${newProducts}">--%>
-            <div class="row d-flex justify-content-center">
-                <div class="col-5" style="text-align: center; position: relative">
-                    <img class="mx-auto"
-                         style="display: inline-block"
-                         src="${initParam.imgProductPath}${product.getImage()}"
-                         alt=""
-                         height="200px"
-                    />
-                </div>
 
-                <div class="col-7">
-                    <h5>${product.getName()}</h5>
-                    <p>${product.getDescription()}</p>
+<jsp:useBean id="filteredProducts" scope="request" type="java.util.List"/>
+<c:set var="filteredProducts" scope="request" value="${filteredProducts}"/>
+<jsp:useBean id="activePage" scope="request" type="java.lang.Integer"/>
+<c:set var="activePage" scope="request" value="${activePage}"/>
+<jsp:useBean id="numberOfPages" scope="request" type="java.lang.Integer"/>
+<c:set var="numberOfPages" scope="request" value="${numberOfPages}"/>
+<jsp:useBean id="filter" scope="request" type="java.lang.String"/>
+<c:set var="filter" scope="request" value="${filter}"/>
+
+<div id="container">
+    <div class="bg-white">
+        <div class="heading_bg">
+            <h2>Products </h2>
+        </div>
+    </div>
+    <c:if test="${role == 'admin'}">
+        <a href="addProduct">
+            <button type="button" class="btn btn-primary">Add a new product</button>
+        </a>
+    </c:if>
+    <nav class="navbar navbar-light bg-light justify-content-between">
+        <a class="navbar-brand">
+            <c:choose>
+                <c:when test="${not empty filter}">
+                    Search: ${filter}
+                </c:when>
+                <c:otherwise>
+                    All products
+                </c:otherwise>
+            </c:choose>
+            <c:if test="${not empty filter}">
+
+            </c:if>
+        </a>
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search name ..." aria-label="Search"
+                   name="filter">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </nav>
+    <div id="portfolio" class="mt-2">
+        <div>
+            <div class="row">
+                <%
+                    for (ProductEntity product : (List<ProductEntity>) filteredProducts) {
+                %>
+                <div class="col-4 mb-2">
+                    <p>
+                        <a title="<%=product.getName()%>"
+                           href="images/<%=product.getImage()%>"
+                           class="portfolio-item-preview"
+                           data- rel="prettyPhoto">
+                            <img src="images/<%=product.getImage()%>"
+                                 alt=""
+                                 width="210"
+                                 height="145"
+                                 class="portfolio-img pretty-box">
+                        </a>
+                    </p>
+                    <h4><a href="detail?productId=<%=product.getProductId()%>"><%=product.getName()%>
+                    </a></h4>
+                    <p><%=product.getDescription()%>
+                    </p>
                     <p style="text-align: left">
-                        <a href="#" class="button">More Info</a>
-                        <a href="#" class="button">Buy now</a>
+                        <a href="detail?productId=<%=product.getProductId()%>" class="button_small white">
+                            See Details &raquo;
+                        </a>
                     </p>
                 </div>
+                <%
+                    }
+                %>
             </div>
-            <%--            </c:forEach>--%>
         </div>
-        <div id="sdfsd" class="d-flex justify-content-center mb-5">
-            <c:set var="countProduct" scope="request" value="${1}"/>
-            <c:forEach var="product" items="${newProducts}" varStatus="loop">
-                <a href="products?index=${loop.index}" style="text-decoration: none; width: 200px">
-                    <div class="d-flex flex-column mx-2 justify-content-center">
-                        <img src="${initParam.imgProductPath}${product.getImage()}" alt="" width="50" height="50">
-                        <div>${product.getName()} </div>
-                            ${product.getPrice()}
-                    </div>
-                </a>
-            </c:forEach>
-        </div>
-        <c:set var="countProduct" scope="request" value="${countProduct + 1}"/>
-
     </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item <% if (activePage == 1) {%> disabled <%}%>">
+                <a class="page-link" href="?filter=${filter}&page=${activePage - 1}" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">${activePage}</a></li>
+            <li class="page-item <% if (activePage.equals(numberOfPages)){ %> disabled <%}%>">
+                <a class="page-link" href="?filter=${filter}&page=${activePage + 1}">Next</a>
+            </li>
+        </ul>
+    </nav>
+    <div style="clear:both; height: 40px"></div>
 </div>
-
-<%--    <div>--%>
-<%--        <div class="one-fourth">--%>
-<%--            <div class="heading_bg">--%>
-<%--                <h2>Mac</h2>--%>
-<%--            </div>--%>
-<%--            <img src="img/demo/4.jpg" width="100" height="100" alt=""/>--%>
-<%--        </div>--%>
-<%--        <div class="one-fourth">--%>
-<%--            <div class="heading_bg">--%>
-<%--                <h2>Mac</h2>--%>
-<%--            </div>--%>
-<%--            <img src="img/demo/3.jpg" width="100" height="100"/>--%>
-<%--        </div>--%>
-<%--        <div class="one-fourth">--%>
-<%--            <div class="heading_bg">--%>
-<%--                <h2>Mac</h2>--%>
-<%--            </div>--%>
-<%--            <img src="img/demo/1.jpg" width="100" height="100"/>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-</div>
-
-</body>
-</html>

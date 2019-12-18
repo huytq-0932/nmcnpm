@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+        version="2.0">
+
+    <entity class="main.java.hust.entity.CustomerOrder">
+        <table name="customer_order" schema="emarket" catalog=""/>
+        <attributes>
+            <id name="orderId">
+                <column name="order_id" precision="10"/>
+            </id>
+            <basic name="amount">
+                <column name="amount" precision="2"/>
+            </basic>
+            <basic name="dateCreated">
+                <column name="date_created" length="45"/>
+            </basic>
+            <basic name="confirmationNumber">
+                <column name="confirmation_number" precision="10"/>
+            </basic>
+            <basic name="customerId">
+                <column name="customer_id" precision="10"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>

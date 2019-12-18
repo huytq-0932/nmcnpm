@@ -1,10 +1,9 @@
 package main.java.hust.entity;
 
 import javax.persistence.*;
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +18,50 @@ public class ProductEntity {
     private String image;
     private String thumbImage;
     private String descriptionDetail;
+
+    public ProductEntity() {
+    }
+
+    public ProductEntity(String name, BigDecimal price, String description, Timestamp lastUpdate,
+                         int categoryId, String image, String thumbImage, String descriptionDetail) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.lastUpdate = lastUpdate;
+        this.categoryId = categoryId;
+        this.image = image;
+        this.thumbImage = thumbImage;
+        this.descriptionDetail = descriptionDetail;
+    }
+
+    public ProductEntity(HttpServletRequest request) {
+        name = request.getParameter("name");
+        price = BigDecimal.valueOf(Double.parseDouble(request.getParameter("price")));
+        String categoryName = request.getParameter("category");
+        if (categoryName != null) {
+            switch (categoryName) {
+                case "Mac":
+                    categoryId = 1;
+                    break;
+                case "iPad":
+                    categoryId = 2;
+                    break;
+                case "iPhone":
+                    categoryId = 3;
+                    break;
+                case "Accessories":
+                    categoryId = 4;
+                    break;
+            }
+        }
+        image = request.getParameter("image");
+        image = image == null ? (categoryId + ".jpg") : image;
+        thumbImage = request.getParameter("thumbnailImage");
+        thumbImage = thumbImage == null ? ("tn-" + categoryId + ".jpg") : thumbImage;
+        description = request.getParameter("description");
+        descriptionDetail = request.getParameter("descriptionDetail");
+        lastUpdate = new Timestamp(System.currentTimeMillis());
+    }
 
     @Id
     @Column(name = "product_id", nullable = false)

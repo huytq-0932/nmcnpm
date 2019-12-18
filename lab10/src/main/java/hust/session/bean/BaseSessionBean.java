@@ -14,7 +14,16 @@ public abstract class BaseSessionBean<T> {
         this.entityClass = entityClass;
     }
 
+    protected BaseSessionBean() {
+    }
+
     protected abstract EntityManager getEntityManager();
+
+    public T create(T entity) {
+        getEntityManager().persist(entity);
+        List<T> all = findAll();
+        return all.get(all.size() - 1);
+    }
 
     public void edit(T entity) {
         getEntityManager().merge(entity);

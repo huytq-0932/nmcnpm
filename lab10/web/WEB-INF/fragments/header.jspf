@@ -3,44 +3,134 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<c:set var="language" value="${language}" scope="session"/>
+<c:set var="role" value="${role}" scope="session"/>
+<c:choose>
+    <c:when test="${language == 'vie'}">
+        <fmt:setBundle basename="main.java.hust.properties.vie" var="lang"/>
+    </c:when>
+    <c:when test="${language == 'jap'}">
+        <fmt:setBundle basename="main.java.hust.properties.jap" var="lang"/>
+    </c:when>
+    <c:otherwise>
+        <fmt:setBundle basename="main.java.hust.properties.eng" var="lang"/>
+    </c:otherwise>
+</c:choose>
+
 <html>
 <head>
     <title>BigShot</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
-    <link rel="stylesheet" type="text/css" media="screen"
-          href="menu/css/simple_menu.css">
-    <link rel="stylesheet" href="css/nivo-slider.css" type="text/css" media="screen">
-    <link rel="stylesheet" type="text/css" href="boxes/css/style6.css">
-    <link rel="stylesheet" type="text/css" href="js/fancybox/jquery.fancybox.css"
-          media="all">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link
+            rel="stylesheet"
+            type="text/css"
+            media="screen"
+            href="css/style.css">
+    <link
+            rel="stylesheet"
+            type="text/css"
+            media="screen"
+            href="menu/css/simple_menu.css">
+    <link
+            rel="stylesheet"
+            href="css/nivo-slider.css"
+            type="text/css"
+            media="screen">
+    <link
+            rel="stylesheet"
+            type="text/css"
+            href="boxes/css/style6.css">
+    <link
+            rel="stylesheet"
+            type="text/css"
+            href="js/fancybox/jquery.fancybox.css"
+            media="all">
+    <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous">
 </head>
 <body>
-<div class="wrapper">
-    <header class="">
-        <div class="header">
-            <div id="site-title">
-                <img src="img/logo.png" alt=""><br>
-            </div>
-            <ol id="menu">
-                <li class="active_menu_item"><a href="products"
-                                                style="color:#FFF">Home</a></li>
-                <li><a href="category?id=1">Category</a>
+<div class="d-flex justify-content-between header">
+    <div>
+        <a href="home"> <img src="img/logo.png" alt=""></a>
+    </div>
+    <!-- Main Menu -->
+    <ol id="menu">
+        <li class="active_menu_item">
+            <a href="home" style="color:#FFF"><fmt:message key="home" bundle="${lang}"/></a>
+        </li>
+        <!-- end sub menu -->
+        <li><a href="products"><fmt:message key="shopping" bundle="${lang}"/></a></li>
+        <li><a href="category?id=1"><fmt:message key="category" bundle="${lang}"/></a>
+            <ol>
+                <li><a href="category?id=1">Mac</a>
                     <ol>
-                        <li><a href="category?id=1">Mac</a>
-                            <ol>
-                                <li><a href="category?id=1">iMac</a></li>
-                                <li><a href="category?id=1">Mac Pro</a></li>
-                                <li><a href="category?id=1">MacBook Air</a></li>
-                                <li><a href="category?id=1">MacBook Pro</a></li>
-                            </ol>
-                        </li>
-                        <li><a href="category?id=3">iPad</a></li>
-                        <li><a href="category?id=2">iPhone</a></li>
-                        <li><a href="category?id=4">Accessories</a></li>
+                        <li><a href="category?id=1">iMac</a></li>
+                        <li><a href="category?id=1">Mac Pro</a></li>
+                        <li><a href="category?id=1">MacBook Air</a></li>
+                        <li><a href="category?id=1">MacBook Pro</a></li>
                     </ol>
                 </li>
+                <li><a href="category?id=3">iPad</a></li>
+                <li><a href="category?id=2">iPhone</a></li>
+                <li><a href="category?id=4">Accessories</a></li>
             </ol>
-        </div>
-    </header>
+        </li>
+        <!-- end sub menu -->
+        <li><a href="home">
+            <fmt:message key="language" bundle="${lang}"/>
+        </a>
+            <ol>
+                <li><a href="home?lang=eng">English</a></li>
+                <li><a href="home?lang=vie">Tiếng Việt</a></li>
+                <li><a href="home?lang=jap">Le français</a></li>
+            </ol>
+        </li>
+        <c:if test="${role == 'admin'}">
+            <li>
+                <a href="home">
+                    <fmt:message key="manage" bundle="${lang}"/>
+                </a>
+                <ol>
+                    <li><a href="products">
+                        <fmt:message key="product" bundle="${lang}"/>
+                    </a></li>
+                    <li><a href="orders">
+                        <fmt:message key="order" bundle="${lang}"/>
+                    </a></li>
+                </ol>
+            </li>
+        </c:if>
+    </ol>
+
+    <div>
+        <a href="viewCart">
+            <img src="img/cart.png" alt="" width="30" >
+            <c:choose>
+                <c:when test="${cart == null}">
+                    0 item
+                </c:when>
+                <c:otherwise>
+                    <c:choose>
+                        <c:when test="${cart.numberOfItems == null}">
+                            0
+                        </c:when>
+                        <c:otherwise>
+                            ${cart.numberOfItems}
+                        </c:otherwise>
+                    </c:choose>
+                    <c:choose>
+                        <c:when test="${cart.numberOfItems == 1}">
+                            item
+                        </c:when>
+                        <c:otherwise>
+                            items
+                        </c:otherwise>
+                    </c:choose>
+                </c:otherwise>
+            </c:choose>
+        </a>
+    </div>
+</div>
+<div class="wrapper">

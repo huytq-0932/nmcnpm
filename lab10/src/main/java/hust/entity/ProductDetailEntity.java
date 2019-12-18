@@ -18,6 +18,15 @@ public class ProductDetailEntity {
     private String accessories;
     private String guaranty;
 
+    public ProductDetailEntity() {
+    }
+
+    public ProductDetailEntity(ProductEntity product) {
+        this.productId = product.getProductId();
+        this.information = product.getDescription() + "\n" + product.getDescriptionDetail();
+        this.image1 = product.getImage();
+    }
+
     @Id
     @Column(name = "product_id", nullable = false)
     public int getProductId() {
@@ -130,7 +139,7 @@ public class ProductDetailEntity {
     }
 
     @Transient
-    public List<String> getAllImages(){
+    public List<String> getAllImages() {
         List<String> images = new ArrayList<>();
         if (image1 != null) images.add(image1);
         if (image2 != null) images.add(image2);

@@ -3,12 +3,19 @@
 
     <persistence-unit name="eMarketPU">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>jdbc/eMarket</jta-data-source>
         <mapping-file>main/java/hust/entity/CategoryEntity.xml</mapping-file>
         <mapping-file>main/java/hust/entity/ProductEntity.xml</mapping-file>
         <mapping-file>main/java/hust/entity/ProductDetailEntity.xml</mapping-file>
+        <mapping-file>main/java/hust/entity/Customer.xml</mapping-file>
+        <mapping-file>main/java/hust/entity/CustomerOrder.xml</mapping-file>
+        <mapping-file>main/java/hust/entity/OrderedProduct.xml</mapping-file>
         <class>main.java.hust.entity.CategoryEntity</class>
         <class>main.java.hust.entity.ProductEntity</class>
         <class>main.java.hust.entity.ProductDetailEntity</class>
+        <class>main.java.hust.entity.Customer</class>
+        <class>main.java.hust.entity.CustomerOrder</class>
+        <class>main.java.hust.entity.OrderedProduct</class>
         <properties>
             <property name="eclipselink.jdbc.url"
                       value="jdbc:mysql://localhost:3306/emarket?useSSL=false&amp;autoReconnect=true"/>
